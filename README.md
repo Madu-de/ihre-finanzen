@@ -4,4 +4,4 @@ Mit diesem Moneymanager kannst du:
 - Kontos bearbeiten
 - Kontos löschen
 
-Vielleicht kommen demnächst nochmehr Funktionen dazu.
+Vielleicht kommen demnächst noch mehr Funktionen dazu.
