@@ -187,18 +187,6 @@ let account = {
             konto = konto.split(", ");
             localStorage.removeItem("konto: " + konto[3]);
 
-            let data = account.data.konten;
-
-            if (account.data.konten != 1) {
-
-                localStorage.setItem("mfnz:konten", 200);
-
-
-
-            }
-
-            data = account.data.konten - 1;
-            localStorage.setItem("mfnz:konten", data);
 
             location.reload();
 
