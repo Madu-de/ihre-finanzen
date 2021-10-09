@@ -12,7 +12,7 @@ let account = {
         load: function () {
 
             account.data.konten = Number(localStorage.getItem("mfnz:konten"));
-            for (let i = 1; i <= account.data.konten * 500; i++) {
+            for (let i = 1; i <= 500; i++) {
 
                 try {
                     let konto = localStorage.getItem("konto: " + i);
@@ -107,78 +107,84 @@ let account = {
         },
         create: function () {
 
-            let fehler = function () {
-                alert("Fülle bitte alle Felder aus!");
-            }
-            if (ownerName.value === "") {
-
-                fehler();
-
-            } else {
-
-                if (kontoName.value === "") {
+            if (account.data.konten < 500) {
+                let fehler = function () {
+                    alert("Fülle bitte alle Felder aus!");
+                }
+                if (ownerName.value === "") {
 
                     fehler();
 
                 } else {
 
-                    if (kontoStand.value === "") {
+                    if (kontoName.value === "") {
 
                         fehler();
 
                     } else {
 
-                        if (ownerName.value.length <= 20) {
+                        if (kontoStand.value === "") {
 
-                            if (kontoName.value.length <= 10) {
+                            fehler();
 
-                                if (kontoStand.value.length <= 10) {
+                        } else {
 
-                                    let OwnerName = ownerName.value;
-                                    let KontoName = kontoName.value;
+                            if (ownerName.value.length <= 20) {
 
-                                    OwnerName = OwnerName.replace(",", "?");
-                                    KontoName = KontoName.replace(",", "?");
+                                if (kontoName.value.length <= 10) {
 
-                                    let money = kontoStand.value;
-                                    money = money.replace(",", ".");
+                                    if (kontoStand.value.length <= 10) {
 
-                                    if (Number(money) >= 0 || Number(money) <= 0) {
+                                        let OwnerName = ownerName.value;
+                                        let KontoName = kontoName.value;
 
-                                        //HIER CONTENT!
+                                        OwnerName = OwnerName.replace(",", "?");
+                                        KontoName = KontoName.replace(",", "?");
+
                                         let money = kontoStand.value;
                                         money = money.replace(",", ".");
 
-                                        account.data.konten += 1;
-                                        localStorage.setItem("mfnz:konten", account.data.konten);
-                                        localStorage.setItem("konto: " + account.data.konten, OwnerName + ", " + KontoName + ", " + money);
-                                        location.reload();
+                                        if (Number(money) >= 0 || Number(money) <= 0) {
+
+                                            //HIER CONTENT!
+                                            let money = kontoStand.value;
+                                            money = money.replace(",", ".");
+
+                                            account.data.konten += 1;
+                                            localStorage.setItem("mfnz:konten", account.data.konten);
+                                            localStorage.setItem("konto: " + account.data.konten, OwnerName + ", " + KontoName + ", " + money);
+                                            location.reload();
+
+                                        } else {
+
+                                            alert("Bitte gebe einen gültigen Kontostand an.");
+
+                                        }
 
                                     } else {
 
-                                        alert("Bitte gebe einen gültigen Kontostand an.");
+                                        alert("Ihr Kontostand ist zu hoch. (Es ist nur eine Länge von 10 Zeichen erlaubt)");
 
                                     }
 
                                 } else {
 
-                                    alert("Ihr Kontostand ist zu hoch. (Es ist nur eine Länge von 10 Zeichen erlaubt)");
+                                    alert("Ihr Kontoname ist zu groß. (Es ist nur eine Länge von 10 Zeichen erlaubt)");
 
                                 }
-
                             } else {
 
-                                alert("Ihr Kontoname ist zu groß. (Es ist nur eine Länge von 10 Zeichen erlaubt)");
+                                alert("Ihr Name ist zu groß!");
 
                             }
-                        } else {
-
-                            alert("Ihr Name ist zu groß!");
-
                         }
-                    }
 
+                    }
                 }
+            } else {
+
+                alert("Die Maximalanzahl der Erstellung der Konten wurde erreicht.");
+
             }
         },
         delete: function () {
@@ -186,7 +192,6 @@ let account = {
             let konto = localStorage.getItem("mfnz:edit");
             konto = konto.split(", ");
             localStorage.removeItem("konto: " + konto[3]);
-
 
             location.reload();
 
